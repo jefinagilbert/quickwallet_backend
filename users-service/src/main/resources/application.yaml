@@ -1,0 +1,28 @@
+server:
+  port: 8081
+spring:
+  application:
+    name: users-service
+
+  datasource:
+    # Update username and password to match your local PostgreSQL setup
+    url: jdbc:postgresql://localhost:5432/quickwallet-user
+    username: admin
+    password: supersecretpassword
+
+  jpa:
+    hibernate:
+      # Automatically generates the SQL to create your 'app_users' table
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      # Connects to your discovery-server
+      defaultZone: http://localhost:8761/eureka/
