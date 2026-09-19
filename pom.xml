@@ -21,6 +21,7 @@
         <module>discovery-server</module>
         <module>api-gateway</module>
         <module>users-service</module>
+        <module>wallet-service</module>
     </modules>
 
     <properties>

@@ -44,11 +44,11 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 // Validate the token
                 jwtUtil.validateToken(authHeader);
 
-                String email = jwtUtil.extractEmail(authHeader);
+                String userId = jwtUtil.extractSubject(authHeader);
 
                 org.springframework.http.server.reactive.ServerHttpRequest mutatedRequest = exchange.getRequest()
                     .mutate()
-                    .header("X-Auth-User-Email", email)
+                    .header("X-Auth-User-Id", userId)
                     .build();
                 return chain.filter(exchange.mutate().request(mutatedRequest).build());
 

@@ -6,6 +6,7 @@ import org.example.usersservice.dto.AuthResponse;
 import org.example.usersservice.entity.User;
 import org.example.usersservice.repository.UserRepository;
 import org.example.usersservice.security.JwtUtil;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +23,7 @@ public class AuthService {
         this.jwtUtil = jwtUtil;
     }
 
-    public AuthResponse register(AuthRequest request) {
+    public ResponseEntity<String> register(AuthRequest request) {
         if (userRepository.findByEmail(request.email()).isPresent()) {
             throw new RuntimeException("Email Already Exists");
         }
@@ -30,10 +31,9 @@ public class AuthService {
         User user = new User();
         user.setEmail(request.email());
         user.setPassword(passwordEncoder.encode(request.password()));
-        userRepository.save(user);
+        User ans = userRepository.save(user);
 
-        String token = jwtUtil.generateToken(request.email());
-        return new AuthResponse(token);
+        return ResponseEntity.ok(ans.getEmail()+ " is registered successfully");
     }
 
     public AuthResponse login(AuthRequest request) {
@@ -43,7 +43,7 @@ public class AuthService {
             throw new RuntimeException("Incorrect password");
         }
 
-        String token = jwtUtil.generateToken(request.email());
+        String token = jwtUtil.generateToken(user.getId());
         return new AuthResponse(token);
     }
 

@@ -5,12 +5,14 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/wallet")
 public class walletController {
 
     @GetMapping("/getBalance")
-    public ResponseEntity<String> getWalletBalance(@RequestHeader("X-Auth-User-Email") String email) {
-        return ResponseEntity.ok("Secured connection and Fetched balance - " + email);
+    public ResponseEntity<String> getWalletBalance(@RequestHeader("X-Auth-User-Id") UUID userId) {
+        return ResponseEntity.ok("Secured connection and Fetched balance - " + userId);
     }
 }

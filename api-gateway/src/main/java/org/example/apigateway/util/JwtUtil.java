@@ -24,7 +24,7 @@ public class JwtUtil {
             .parseSignedClaims(token);
     }
 
-    public String extractEmail(final String token) {
+    public String extractSubject(final String token) {
         return Jwts.parser()
             .verifyWith(getSigningKey())
             .build()
