@@ -9,20 +9,15 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
     <groupId>org.example</groupId>
-    <artifactId>wallet-service</artifactId>
+    <artifactId>payment-orchestrator-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>wallet-service</name>
-    <description>Wallet Service for QuickWallet</description>
+    <name>payment-orchestrator-service</name>
+    <description>Orchestrate Payments</description>
 
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -36,6 +31,15 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

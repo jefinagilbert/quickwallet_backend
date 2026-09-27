@@ -18,6 +18,18 @@ spring:
             - Path=/api/wallet/**
           filters:
             - AuthenticationFilter
+        - id: merchant-service-routes
+          uri: lb://merchant-service
+          predicates:
+            - Path=/api/merchant/**
+          filters:
+            - AuthenticationFilter
+        - id: payment-orchestrator-service-routes
+          uri: lb://payment-orchestrator-service
+          predicates:
+            - Path=/api/transfer/**
+          filters:
+            - AuthenticationFilter
 
 eureka:
   instance:

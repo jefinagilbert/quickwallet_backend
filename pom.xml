@@ -22,6 +22,8 @@
         <module>api-gateway</module>
         <module>users-service</module>
         <module>wallet-service</module>
+        <module>merchant-service</module>
+        <module>payment-orchestrator-service</module>
     </modules>
 
     <properties>

@@ -5,6 +5,8 @@
     <file url="file://$PROJECT_DIR$/api-gateway/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/api-gateway/users-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/discovery-server/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/merchant-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/payment-orchestrator-service/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/users-service/src/main/java" charset="UTF-8" />
