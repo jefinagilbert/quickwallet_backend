@@ -1,17 +1,17 @@
 server:
-  port: 8082
-
+  port: 8084
 spring:
   application:
-    name: wallet-service
+    name: payment-orchestrator-service
   datasource:
     # Update username and password to match your local PostgreSQL setup
-    url: jdbc:postgresql://localhost:5432/quickwallet-wallet
+    url: jdbc:postgresql://localhost:5432/quickwallet-payment
     username: admin
     password: supersecretpassword
 
   jpa:
     hibernate:
+      # Automatically generates the SQL to create your 'app_users' table
       ddl-auto: update
     show-sql: true
     properties:

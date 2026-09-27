@@ -54,6 +54,7 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 
             } catch (Exception e) {
                 // Token is expired or tampered with
+                e.printStackTrace();
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }

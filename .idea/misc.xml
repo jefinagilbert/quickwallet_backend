@@ -10,6 +10,8 @@
         <option value="$PROJECT_DIR$/api-gateway/users-service/pom.xml" />
         <option value="$PROJECT_DIR$/users-service/pom.xml" />
         <option value="$PROJECT_DIR$/wallet-service/pom.xml" />
+        <option value="$PROJECT_DIR$/merchat-service/pom.xml" />
+        <option value="$PROJECT_DIR$/payment-orchestrator-service/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">
