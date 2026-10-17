@@ -10,6 +10,7 @@ import org.example.paymentorchestratorservice.repository.LedgerEntryRepository;
 import org.example.paymentorchestratorservice.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -20,11 +21,13 @@ public class SagaOrchestratorService {
     private final TransactionRepository transactionRepository;
     private final LedgerEntryRepository ledgerEntryRepository;
     private final AccountRouter accountRouter;
+    private final RedisIdempotencyService redisIdempotencyService;
 
-    public SagaOrchestratorService(TransactionRepository transactionRepository, LedgerEntryRepository ledgerEntryRepository, AccountRouter accountRouter) {
+    public SagaOrchestratorService(TransactionRepository transactionRepository, LedgerEntryRepository ledgerEntryRepository, AccountRouter accountRouter, RedisIdempotencyService redisIdempotencyService) {
         this.transactionRepository = transactionRepository;
         this.ledgerEntryRepository = ledgerEntryRepository;
         this.accountRouter = accountRouter;
+        this.redisIdempotencyService = redisIdempotencyService;
     }
 
     public Transactions sendMoney(UUID sourceUserId, String idempotencyKey, TransactionRequest request) {
@@ -46,6 +49,13 @@ public class SagaOrchestratorService {
 
 
     public Transactions walletToWallet(String idempotencyKey, UUID sourceUserId, TransactionRequest request) {
+
+        boolean acquired = redisIdempotencyService.acquireLock(idempotencyKey, Duration.ofSeconds(30));
+
+        if(!acquired) {
+            return transactionRepository.findByIdempotencyKey(idempotencyKey).orElseThrow(() -> new RuntimeException("Dont retry, it is already in progress"));
+        }
+
         Optional<Transactions> existing = transactionRepository.findByIdempotencyKey(idempotencyKey);
 
         if(existing.isPresent()) {
@@ -74,9 +84,11 @@ public class SagaOrchestratorService {
             transactionRepository.save(tx);
 
             handleLedgerEntry(tx, request);
+            redisIdempotencyService.markCompleted(idempotencyKey, tx.getId(), Duration.ofHours(24));
             return tx;
         } catch (Exception e) {
             handleRollBack(tx, sourceUserId, request, source);
+            redisIdempotencyService.releaseLock(idempotencyKey);
             return tx;
         }
     }

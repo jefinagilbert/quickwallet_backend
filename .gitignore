@@ -4,11 +4,21 @@ target/
 !**/src/test/**/target/
 .kotlin
 
+### Environment Variables & Secrets ###
+.env
+**/.env
+.env.*
+**/.env.*
+!.env.example
+!**/.env.example
+
+### Database Dumps & Logs ###
+*.sql
+*.log
+ai-assistant-service/ai-service.log
+
 ### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
-.idea/libraries/
+.idea/
 *.iws
 *.iml
 *.ipr

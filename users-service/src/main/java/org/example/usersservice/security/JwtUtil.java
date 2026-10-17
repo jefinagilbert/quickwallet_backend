@@ -13,10 +13,10 @@ import java.util.UUID;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret:MySuperSecretKeyForQuickWalletWhichIsAtLeast32BytesLong}")
+    @Value("${jwt.secret}")
     private String secret;
 
-    @Value("${jwt.expiration:180000}")
+    @Value("${jwt.expiration}")
     private long jwtExpiration;
 
     private SecretKey getSigningKey() {

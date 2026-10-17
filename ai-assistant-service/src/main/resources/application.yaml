@@ -1,0 +1,42 @@
+server:
+  port: 8085
+spring:
+  application:
+    name: ai-assistant-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/quickwallet-ai
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  ai:
+    retry:
+      max-attempts: 1
+    openai:
+      api-key: ${GEMINI_API_KEY}
+      base-url: ${GEMINI_BASE_URL}
+      chat:
+        options:
+          model: ${GEMINI_MODEL}
+          temperature: 0.2
+
+services:
+  wallet:
+    url: ${WALLET_SERVICE_URL}
+  merchant:
+    url: ${MERCHANT_SERVICE_URL}
+  orchestrator:
+    url: ${ORCHESTRATOR_SERVICE_URL}
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL}

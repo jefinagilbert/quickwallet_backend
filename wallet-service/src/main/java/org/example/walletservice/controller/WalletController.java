@@ -29,9 +29,9 @@ public class WalletController {
         return ResponseEntity.ok("Created Successfully");
     }
 
-    @GetMapping("/balance")
-    public ResponseEntity<BigDecimal> getWalletBalance(@RequestHeader("X-Auth-User-Id") UUID userId, @RequestBody WalletBalanceRequest request) {
-        return ResponseEntity.ok(walletService.getBalance(userId, request.walletId()));
+    @RequestMapping(value = "/balance", method = {RequestMethod.GET, RequestMethod.POST})
+    public ResponseEntity<BigDecimal> getWalletBalance(@RequestHeader("X-Auth-User-Id") UUID userId) {
+        return ResponseEntity.ok(walletService.getBalance(userId));
     }
 
     @PostMapping("/addFunds")

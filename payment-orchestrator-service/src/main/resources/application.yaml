@@ -4,14 +4,17 @@ spring:
   application:
     name: payment-orchestrator-service
   datasource:
-    # Update username and password to match your local PostgreSQL setup
-    url: jdbc:postgresql://localhost:5432/quickwallet-payment
-    username: admin
-    password: supersecretpassword
+    url: jdbc:postgresql://${DB_HOST}:${DB_PORT}/quickwallet-payment
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  data:
+    redis:
+      host: ${REDIS_HOST}
+      port: ${REDIS_PORT}
+      password: ${REDIS_PASSWORD}
 
   jpa:
     hibernate:
-      # Automatically generates the SQL to create your 'app_users' table
       ddl-auto: update
     show-sql: true
     properties:
@@ -23,5 +26,4 @@ eureka:
     prefer-ip-address: true
   client:
     service-url:
-      # Connects to your discovery-server
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVER_URL}
