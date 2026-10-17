@@ -24,13 +24,23 @@
         <module>wallet-service</module>
         <module>merchant-service</module>
         <module>payment-orchestrator-service</module>
+        <module>ai-assistant-service</module>
     </modules>
 
     <properties>
         <java.version>21</java.version>
         <spring-cloud.version>2023.0.3</spring-cloud.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spring-dotenv.version>4.0.0</spring-dotenv.version>
     </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>me.paulschwarz</groupId>
+            <artifactId>spring-dotenv</artifactId>
+            <version>${spring-dotenv.version}</version>
+        </dependency>
+    </dependencies>
 
     <dependencyManagement>
         <dependencies>

@@ -16,6 +16,18 @@ public interface WalletRepository extends JpaRepository<WalletEntity, String> {
     Optional<WalletEntity> findByUserId(UUID userId);
     Optional<WalletEntity> findByIdAndUserId(String id, UUID userId);
 
+    @Query("""
+        SELECT w.balance FROM WalletEntity w WHERE
+        w.id = :id
+    """)
+    Optional<BigDecimal> findBalanceById(@Param("id") String walletId);
+
+    @Query("""
+        SELECT w.balance FROM WalletEntity w WHERE
+        w.id = :id AND w.userId = :userId
+    """)
+    Optional<BigDecimal> findBalanceByIdAndUserId(@Param("id") String walletId, @Param("userId") UUID userId);
+
     @Modifying(clearAutomatically = true, flushAutomatically = true)
     @Query("""
         UPDATE WalletEntity w 
@@ -31,7 +43,7 @@ public interface WalletRepository extends JpaRepository<WalletEntity, String> {
     @Query("""
         UPDATE WalletEntity w 
         SET w.balance = w.balance + :amount
-        WHERE w.id = :walletId AND w.balance >= :amount
+        WHERE w.id = :walletId
     """)
     int incrementBalanceAtomic(
             @Param("walletId") String walletId,

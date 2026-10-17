@@ -10,7 +10,7 @@ import javax.crypto.SecretKey;
 @Component
 public class JwtUtil {
 
-    @Value("${jwt.secret:MySuperSecretKeyForQuickWalletWhichIsAtLeast32BytesLong}")
+    @Value("${jwt.secret}")
     private String secret;
 
     private SecretKey getSigningKey() {

@@ -1,7 +1,6 @@
 server:
   port: 8080
 
-
 spring:
   application:
     name: api-gateway
@@ -30,10 +29,20 @@ spring:
             - Path=/api/transfer/**
           filters:
             - AuthenticationFilter
+        - id: ai-assistant-service-routes
+          uri: lb://ai-assistant-service
+          predicates:
+            - Path=/api/ai/**
+          filters:
+            - AuthenticationFilter
+
+jwt:
+  secret: ${JWT_SECRET}
 
 eureka:
   instance:
     prefer-ip-address: true
   client:
+    registry-fetch-interval-seconds: 5
     service-url:
-      defaultZone: http://localhost:8761/eureka/
+      defaultZone: ${EUREKA_SERVER_URL}
